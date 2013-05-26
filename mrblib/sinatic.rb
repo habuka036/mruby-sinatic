@@ -1,7 +1,7 @@
 module Sinatic
   @content_type = nil
   @options = {:host => '127.0.0.1', :port => 8888}
-  @routes = { 'GET' => [], 'POST' => [] }
+  @routes = { 'GET' => [], 'POST' => [], 'PUT' => [], 'DELETE' => [] }
   @shutdown = false
   def self.route(method, path, opts, &block)
     @routes[method] << [path, opts, block]
@@ -130,6 +130,12 @@ module Kernel
   end
   def post(path, opts={}, &block)
     ::Sinatic.route 'POST', path, opts, &block
+  end
+  def put(path, opts={}, &block)
+    ::Sinatic.route 'PUT', path, opts, &block
+  end
+  def delete(path, opts={}, &block)
+    ::Sinatic.route 'DELETE', path, opts, &block
   end
   def content_type(type)
     ::Sinatic.content_type type
